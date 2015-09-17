@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Fontify-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Fontify/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/Fontify/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

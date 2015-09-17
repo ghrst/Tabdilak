@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="color_activity_konvertor_white" type="color">#FFFFFF</item>
+    <item name="color_activity_konvertor_green" type="color">#7cb342</item>
+    <item name="color_activity_about_blue" type="color">#00AEEF</item>
+    <item name="color_activity_konvertor_text" type="color">#000000</item>
+    <item name="color_activity_about_text" type="color">#FFFFFF</item>
+</resources>

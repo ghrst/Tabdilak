@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PersianNumeralToWords.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debug</a> &gt; <a href="index.source.html" class="el_package">com.mevelopers.tabdilak</a> &gt; <span class="el_source">PersianNumeralToWords.java</span></div><h1>PersianNumeralToWords.java</h1><pre class="source lang-java linenums">package com.mevelopers.tabdilak;
+
+import java.text.DecimalFormat;
+
+<span class="nc" id="L5">public class PersianNumeralToWords {</span>
+	
+<span class="nc" id="L7">	private static final String [] mTens = {</span>
+		&quot;&quot;, 
+		&quot;ط¯ظ‡&quot;,
+		&quot;ط¨غŒط³طھ&quot;,
+		&quot;ط³غŒ&quot;,
+		&quot;ع†ظ‡ظ„&quot;,
+		&quot;ظ¾ظ†ط¬ط§ظ‡&quot;,
+		&quot;ط´طµطھ&quot;,
+		&quot;ظ‡ظپطھط§ط¯&quot;,
+		&quot;ظ‡ط´طھط§ط¯&quot;,
+		&quot;ظ†ظˆط¯&quot;};
+<span class="nc" id="L18">	private static final String [] mOnes = {</span>
+		&quot;&quot;,
+		&quot;غŒع©&quot;,
+		&quot;ط¯ظˆ&quot;,
+		&quot;ط³ظ‡&quot;,
+		&quot;ع†ظ‡ط§ط±&quot;,
+		&quot;ظ¾ظ†ط¬&quot;,
+		&quot;ط´ط´&quot;,
+		&quot;ظ‡ظپطھ&quot;,
+		&quot;ظ‡ط´طھ&quot;,
+		&quot;ظ†ظ‡&quot;,
+		&quot;ط¯ظ‡&quot;,
+		&quot;غŒط§ط²ط¯ظ‡&quot;,
+		&quot;ط¯ظˆط§ط²ط¯ظ‡&quot;,
+		&quot;ط³غŒط²ط¯ظ‡&quot;,
+		&quot;ع†ظ‡ط§ط±ط¯ط®&quot;,
+		&quot;ظ¾ط§ظ†ط²ط¯ظ‡&quot;,
+		&quot;ط´ط§ظ†ط²ط¯ظ‡&quot;,
+		&quot;ظ‡ظپط¯ظ‡&quot;,
+		&quot;ظ‡ط¬ط¯ظ‡&quot;,
+		&quot;ظ†ظˆط²ط¯ظ‡&quot;
+	};
+	
+<span class="nc" id="L41">	private static final String [] mHundreds = {</span>
+		&quot;&quot;,
+		&quot;غŒع©طµط¯&quot;,
+		&quot;ط¯ظˆغŒط³طھ&quot;,
+		&quot;ط³غŒطµط¯&quot;,
+		&quot;ع†ظ‡ط§ط±طµط¯&quot;,
+		&quot;ظ¾ط§ظ†طµط¯&quot;,
+		&quot;ط´ط´طµط¯&quot;,
+		&quot;ظ‡ظپطھطµط¯&quot;,
+		&quot;ظ‡ط´طھطµط¯&quot;,
+		&quot;ظ†ظ‡طµط¯&quot;
+	};
+	
+	
+	public static String numberToString(long number) {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		if(number == 0) {</span>
+<span class="nc" id="L57">			return &quot;طµظپط±&quot;;</span>
+		}
+		/*
+		 * Notice that in here we ignore sign of input number.
+		 */
+<span class="nc" id="L62">		number = Math.abs(number);</span>
+<span class="nc" id="L63">		String sNumber = Long.toString(number);</span>
+		//Check to see if number is in our legam range
+<span class="nc bnc" id="L65" title="All 2 branches missed.">		if(sNumber.length() &gt; 12) {</span>
+<span class="nc" id="L66">			throw new NumberFormatException(&quot;Number is too large for parser!&quot;);</span>
+		}
+		//We must pad the leftmost side with zeros
+<span class="nc" id="L69">		String mask = &quot;000000000000&quot;;</span>
+<span class="nc" id="L70">		DecimalFormat df = new DecimalFormat(mask);</span>
+<span class="nc" id="L71">		sNumber = df.format(number);</span>
+		//XXXnnnnnnnnn
+<span class="nc" id="L73">		int billions = Integer.parseInt(sNumber.substring(0, 3));</span>
+		//nnnXXXnnnnnn
+<span class="nc" id="L75">		int millions = Integer.parseInt(sNumber.substring(3, 6));</span>
+		//nnnnnnXXXnnn
+<span class="nc" id="L77">		int hundredThousands = Integer.parseInt(sNumber.substring(6,9));</span>
+		//nnnnnnnnnXXX
+<span class="nc" id="L79">		int thousands = Integer.parseInt(sNumber.substring(9,12));</span>
+		
+<span class="nc" id="L81">		String billionsString = convertHelper(billions);</span>
+		
+<span class="nc" id="L83">		String millionsString = convertHelper(millions);</span>
+		
+<span class="nc" id="L85">		String hundredThousandsString = convertHelper(hundredThousands);</span>
+		
+<span class="nc" id="L87">		String thousandsString = convertHelper(thousands);</span>
+		
+<span class="nc" id="L89">		String result = &quot;&quot;;</span>
+<span class="nc" id="L90">		boolean addAnd = false;</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">		if(billionsString != &quot;&quot;) {</span>
+<span class="nc" id="L92">			result += billionsString + &quot; ظ…غŒظ„غŒط§ط±ط¯&quot;;</span>
+<span class="nc" id="L93">			addAnd = true;</span>
+		}
+		
+<span class="nc bnc" id="L96" title="All 2 branches missed.">		if(millionsString != &quot;&quot;) {</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">			if(addAnd) {</span>
+<span class="nc" id="L98">				result += &quot; ظˆ &quot; + millionsString + &quot; ظ…غŒظ„غŒظˆظ†&quot;;</span>
+			} else {
+<span class="nc" id="L100">				result += millionsString + &quot; ظ…غŒظ„غŒظˆظ†&quot;;</span>
+			}
+<span class="nc" id="L102">			addAnd = true;</span>
+		}
+		
+<span class="nc bnc" id="L105" title="All 2 branches missed.">		if(hundredThousandsString != &quot;&quot;) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">			if(addAnd) {</span>
+<span class="nc" id="L107">				result += &quot; ظˆ &quot; + hundredThousandsString + &quot; ظ‡ط²ط§ط±&quot;;</span>
+			} else {
+<span class="nc" id="L109">				result += hundredThousandsString + &quot; ظ‡ط²ط§ط±&quot;;</span>
+			}
+<span class="nc" id="L111">			addAnd = true;</span>
+		}
+		
+<span class="nc bnc" id="L114" title="All 2 branches missed.">		if(thousandsString != &quot;&quot;) {</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">			if(addAnd) {</span>
+<span class="nc" id="L116">				result += &quot; ظˆ &quot; + thousandsString;</span>
+			} else {
+<span class="nc" id="L118">				result += thousandsString;</span>
+			}
+		}
+		
+<span class="nc" id="L122">		return result;</span>
+	}
+	
+	public static String convertHelper (int number) {
+<span class="nc" id="L126">		String result = &quot;&quot;;</span>
+<span class="nc" id="L127">		boolean addAnd = false;</span>
+<span class="nc" id="L128">		int hundreds = number / 100;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">		if(hundreds &gt; 0) {</span>
+		
+<span class="nc" id="L131">			result += mHundreds[hundreds];</span>
+<span class="nc" id="L132">			addAnd = true;</span>
+		}
+<span class="nc" id="L134">		number = number % 100;</span>
+<span class="nc bnc" id="L135" title="All 4 branches missed.">		if(number &lt; 20 &amp;&amp; number &gt; 0){</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">			if(addAnd) {</span>
+<span class="nc" id="L137">				result += &quot; ظˆ &quot; + mOnes[number];</span>
+			} else {
+<span class="nc" id="L139">				result += mOnes[number];</span>
+			}
+		}
+		
+<span class="nc bnc" id="L143" title="All 2 branches missed.">		if(number &gt;= 20) {</span>
+<span class="nc" id="L144">			int tens = number / 10;</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">			if(addAnd) {</span>
+<span class="nc" id="L146">				result += &quot; ظˆ &quot; + mTens[tens];</span>
+<span class="nc" id="L147">				number = number % 10;</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">				if(number &gt; 0)</span>
+<span class="nc" id="L149">					result += &quot; ظˆ &quot; + mOnes[number];</span>
+			} else {
+<span class="nc" id="L151">				result += mTens[tens];</span>
+<span class="nc" id="L152">				number = number % 10;</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">				if(number &gt; 0) {</span>
+<span class="nc" id="L154">					result += &quot; ظˆ &quot; + mOnes[number];</span>
+				}
+			}	
+		}
+<span class="nc" id="L158">		return result;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

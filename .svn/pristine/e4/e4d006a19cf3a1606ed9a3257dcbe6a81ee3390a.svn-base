@@ -1,0 +1,28 @@
+package com.mevelopers.tabdilak;
+
+import com.mevelopers.tabdilak.R;
+
+import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class About extends Activity {
+	private TextView TvVersionNumber;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_about);
+		
+		TvVersionNumber = (TextView) findViewById(R.id.TvVersionNumber);
+		try {
+			PackageInfo pi = this.getPackageManager().getPackageInfo("com.mevelopers.tabdilak", 0);
+			TvVersionNumber.setText("نسخه:" + pi.versionName);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+}

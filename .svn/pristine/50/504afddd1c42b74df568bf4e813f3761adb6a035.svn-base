@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_about"
+        android:orderInCategory="100"
+        android:actionLayout="@layout/menu_about_layout"
+        android:showAsAction="always"
+        android:title="@string/menu_about"
+        />
+
+</menu>

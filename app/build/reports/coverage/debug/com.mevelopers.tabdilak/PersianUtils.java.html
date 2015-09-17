@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PersianUtils.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debug</a> &gt; <a href="index.source.html" class="el_package">com.mevelopers.tabdilak</a> &gt; <span class="el_source">PersianUtils.java</span></div><h1>PersianUtils.java</h1><pre class="source lang-java linenums">package com.mevelopers.tabdilak;
+
+import java.util.HashMap;
+
+<span class="nc" id="L5">public class PersianUtils {</span>
+<span class="nc" id="L6">	private static final HashMap&lt;Character, Character&gt; PERSIAN_TO_ENGLISH = new HashMap&lt;Character, Character&gt;();</span>
+<span class="nc" id="L7">	private static final HashMap&lt;Character, Character&gt; ENGLISH_TO_PERSIAN = new HashMap&lt;Character, Character&gt;();</span>
+	
+	static {
+<span class="nc" id="L10">		PERSIAN_TO_ENGLISH.put('\u06F0', '0');</span>
+<span class="nc" id="L11">		PERSIAN_TO_ENGLISH.put('\u06F1', '1');</span>
+<span class="nc" id="L12">		PERSIAN_TO_ENGLISH.put('\u06F2', '2');</span>
+<span class="nc" id="L13">		PERSIAN_TO_ENGLISH.put('\u06F3', '3');</span>
+<span class="nc" id="L14">		PERSIAN_TO_ENGLISH.put('\u06F4', '4');</span>
+<span class="nc" id="L15">		PERSIAN_TO_ENGLISH.put('\u06F5', '5');</span>
+<span class="nc" id="L16">		PERSIAN_TO_ENGLISH.put('\u06F6', '6');</span>
+<span class="nc" id="L17">		PERSIAN_TO_ENGLISH.put('\u06F7', '7');</span>
+<span class="nc" id="L18">		PERSIAN_TO_ENGLISH.put('\u06F8', '8');</span>
+<span class="nc" id="L19">		PERSIAN_TO_ENGLISH.put('\u06F9', '9');</span>
+		
+<span class="nc" id="L21">		ENGLISH_TO_PERSIAN.put('0', '\u06F0');</span>
+<span class="nc" id="L22">		ENGLISH_TO_PERSIAN.put('1', '\u06F1');</span>
+<span class="nc" id="L23">		ENGLISH_TO_PERSIAN.put('2', '\u06F2');</span>
+<span class="nc" id="L24">		ENGLISH_TO_PERSIAN.put('3', '\u06F3');</span>
+<span class="nc" id="L25">		ENGLISH_TO_PERSIAN.put('4', '\u06F4');</span>
+<span class="nc" id="L26">		ENGLISH_TO_PERSIAN.put('5', '\u06F5');</span>
+<span class="nc" id="L27">		ENGLISH_TO_PERSIAN.put('6', '\u06F6');</span>
+<span class="nc" id="L28">		ENGLISH_TO_PERSIAN.put('7', '\u06F7');</span>
+<span class="nc" id="L29">		ENGLISH_TO_PERSIAN.put('8', '\u06F8');</span>
+<span class="nc" id="L30">		ENGLISH_TO_PERSIAN.put('9', '\u06F9');</span>
+<span class="nc" id="L31">	}</span>
+	
+	public static String convertPersianNumeralToEnglish(String number) {
+<span class="nc bnc" id="L34" title="All 4 branches missed.">		if(number == null || number.length() == 0)</span>
+<span class="nc" id="L35">			throw new IllegalArgumentException(&quot;Provided argument is null!&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		if(!isPersianNumberLegal(number))</span>
+<span class="nc" id="L37">			throw new IllegalArgumentException(&quot;String must only contain Persian numerals&quot;);</span>
+<span class="nc" id="L38">		String result = &quot;&quot;;</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">		for(int i=0;i&lt;number.length();i++)</span>
+<span class="nc" id="L40">			result += PERSIAN_TO_ENGLISH.get(number.charAt(i));</span>
+<span class="nc" id="L41">		return result;</span>
+	}
+	
+	public static String convertEnglishNumeralToPersian(String number) {
+<span class="nc bnc" id="L45" title="All 4 branches missed.">		if(number == null || number.length() == 0)</span>
+<span class="nc" id="L46">			throw new IllegalArgumentException(&quot;Provided argument is null!&quot;);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		if(!isEnglishNumberLegal(number))</span>
+<span class="nc" id="L48">			throw new IllegalArgumentException(&quot;String must only contain numerals!&quot;);</span>
+<span class="nc" id="L49">		String result = &quot;&quot;;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		for(int i=0; i&lt;number.length(); i++) </span>
+<span class="nc" id="L51">			result += ENGLISH_TO_PERSIAN.get(number.charAt(i));</span>
+<span class="nc" id="L52">		return result;</span>
+	}
+	
+	private static boolean isEnglishNumberLegal(String number) {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		for(int i=0;i&lt;number.length();i++) </span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">			if(!ENGLISH_TO_PERSIAN.containsKey(number.charAt(i)))</span>
+<span class="nc" id="L58">				return false;</span>
+<span class="nc" id="L59">		return true;</span>
+	}
+	
+	private static boolean isPersianNumberLegal(String number) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">		for(int i=0; i&lt;number.length();i++) </span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">			if(!PERSIAN_TO_ENGLISH.containsKey(number.charAt(i)))</span>
+<span class="nc" id="L65">					return false;</span>
+<span class="nc" id="L66">		return true;</span>
+		
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

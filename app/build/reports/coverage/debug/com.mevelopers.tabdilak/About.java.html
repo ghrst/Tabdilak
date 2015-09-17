@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>About.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debug</a> &gt; <a href="index.source.html" class="el_package">com.mevelopers.tabdilak</a> &gt; <span class="el_source">About.java</span></div><h1>About.java</h1><pre class="source lang-java linenums">package com.mevelopers.tabdilak;
+
+import com.mevelopers.tabdilak.R;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+<span class="nc" id="L15">public class About extends Activity {</span>
+	private TextView TvVersionNumber;
+
+    @TargetApi(11)
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L21">		super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L22">		setContentView(R.layout.activity_about);</span>
+        //Enabling Ancestral Navigation on API-level 11+
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">            if(NavUtils.getParentActivityName(this) != null) {</span>
+<span class="nc" id="L26">                getActionBar().setDisplayHomeAsUpEnabled(true);</span>
+            }
+        }
+<span class="nc" id="L29">		TvVersionNumber = (TextView) findViewById(R.id.TvVersionNumber);</span>
+		try {
+<span class="nc" id="L31">			PackageInfo pi = this.getPackageManager().getPackageInfo(&quot;com.mevelopers.tabdilak&quot;, 0);</span>
+<span class="nc" id="L32">			TvVersionNumber.setText(&quot;ظ†ط³ط®ظ‡:&quot; + pi.versionName);</span>
+<span class="nc" id="L33">		} catch (NameNotFoundException e) {</span>
+<span class="nc" id="L34">			e.printStackTrace();</span>
+<span class="nc" id="L35">		}</span>
+<span class="nc" id="L36">    }</span>
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        switch(item.getItemId()) {</span>
+            case android.R.id.home:
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if(NavUtils.getParentActivityName(this) != null)</span>
+<span class="nc" id="L44">                    NavUtils.navigateUpFromSameTask(this);</span>
+<span class="nc" id="L45">                return true;</span>
+            default:
+<span class="nc" id="L47">                return super.onOptionsItemSelected(item);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

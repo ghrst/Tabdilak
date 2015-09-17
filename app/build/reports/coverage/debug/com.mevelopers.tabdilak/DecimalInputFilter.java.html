@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DecimalInputFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debug</a> &gt; <a href="index.source.html" class="el_package">com.mevelopers.tabdilak</a> &gt; <span class="el_source">DecimalInputFilter.java</span></div><h1>DecimalInputFilter.java</h1><pre class="source lang-java linenums">package com.mevelopers.tabdilak;
+
+import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+
+<span class="nc" id="L8">public class DecimalInputFilter implements InputFilter {</span>
+	private static final String ALLOWED_INPUT_CHARCTERS = &quot;0123456789,&quot;;
+	
+	/*
+	 * From https://developer.android.com/reference/android/text/InputFilter.html:
+	 * This method is called when the buffer is going to replace the range dstart - dend of dest with the new text from the range start - end of source.
+	 * Return the CharSequence that you would like to have placed there instead, including an empty string if appropriate, or null to accept the original
+	 * replacement. Be careful to not to reject 0-length replacements, as this is what happens when you delete text. Also beware that you should not attempt
+	 * to make any changes to dest from this method; you may only examine it for context. Note: If source is an instance of Spanned or Spannable, the span
+	 * objects in the source should be copied into the filtered result (i.e. the non-null return value). copySpansFrom(Spanned, int, int, Class, Spannable, int)
+	 * can be used for convenience.
+	 */
+	@Override
+	public CharSequence filter(CharSequence source, int start, int end,
+			Spanned dest, int dstart, int dend) {
+		
+<span class="nc bnc" id="L24" title="All 4 branches missed.">		if(source instanceof Spanned || source instanceof Spannable) {</span>
+<span class="nc" id="L25">			SpannableStringBuilder sourceAsSpannable = (SpannableStringBuilder) source;</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">			for(int i=end -1 ; i &gt;= start; i--) {</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">				if(! isCharacterAllowed(sourceAsSpannable.charAt(i), ALLOWED_INPUT_CHARCTERS)) {</span>
+<span class="nc" id="L28">					sourceAsSpannable.delete(i,i + 1);</span>
+				}
+			} //for
+<span class="nc" id="L31">			return source;</span>
+		} else {
+<span class="nc" id="L33">			String result = &quot;&quot;;</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">			for(int i=start; i&lt; end; i++) {</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">				if(isCharacterAllowed(source.charAt(i), ALLOWED_INPUT_CHARCTERS)) {</span>
+<span class="nc" id="L36">					result += source.charAt(i);</span>
+				}
+			}
+<span class="nc" id="L39">			return result;</span>
+		}
+	}
+	
+	//FIXME:: May be we can remove this and substitute it with str1.toLower.contains(str2)
+	private boolean isCharacterAllowed (Character c, String allowed) {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		for (int i=0; i&lt;allowed.length(); i++) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">			if(c == allowed.charAt(i))</span>
+<span class="nc" id="L47">				return true;</span>
+		}
+<span class="nc" id="L49">		return false;</span>
+	}
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
