@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="color_main_activity" type="color">#84AD40</item>
-    <item name="color_about_activity" type="color">#00AEEF</item>
-    <item name="color_text" type="color">#FFFFFF</item>
-</resources>

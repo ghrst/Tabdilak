@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="Fontify"><attr format="string" name="font"/></declare-styleable>
-    <declare-styleable name="FontifyTheme"><attr format="reference" name="fontifyStyle"/></declare-styleable>
-</resources>

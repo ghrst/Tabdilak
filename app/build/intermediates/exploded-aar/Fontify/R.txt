@@ -1,6 +1,0 @@
-int attr font 0x7f010000
-int attr fontifyStyle 0x7f010001
-int[] styleable Fontify { 0x7f010000 }
-int styleable Fontify_font 0
-int[] styleable FontifyTheme { 0x7f010001 }
-int styleable FontifyTheme_fontifyStyle 0

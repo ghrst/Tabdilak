@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="Fontify"><source path="C:\AndroidStudioWorkspace\Tabdilak\app\build\intermediates\exploded-aar\Fontify\assets"/></dataSet><dataSet config="main"><source path="C:\AndroidStudioWorkspace\Tabdilak\app\src\main\assets"><file name="fonts/Yekan.ttf" path="C:\AndroidStudioWorkspace\Tabdilak\app\src\main\assets\fonts\Yekan.ttf"/></source></dataSet><dataSet config="debug"><source path="C:\AndroidStudioWorkspace\Tabdilak\app\src\debug\assets"/></dataSet></merger>

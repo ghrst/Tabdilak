@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="color_main_activity_white" type="color">#FFFFFF</item>
-    <item name="color_main_activity_green" type="color">#84ad40</item>
-    <item name="color_about_activity" type="color">#00AEEF</item>
-    <item name="color_text" type="color">#000000</item>
-    <item name="activity_about_color_text" type="color">#FFFFFF</item>
-</resources>
